@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -20,24 +20,22 @@ import com.airbnb.lottie.compose.LottieAnimation
 import tekno.choweagle.mobiconf.lottie.LottieCompositionLoader
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        LottieCompositionLoader.loadCompositions(
-            this,
-            R.raw.icon_background,
-            R.raw.logo,
-            R.raw.mobiconf
-        ) { success ->
-            runOnUiThread {
-                enableEdgeToEdge()
-                setContent {
-                    // TODO: 第一次启动无动画
-                    if (success) LottieAnimationScreen()
-                    else TODO()
-                }
+        (application as MobiConfApplication).mainActivity = this
+    }
+
+    fun onAllLoadedCallback(success: Boolean) {
+        runOnUiThread {
+            enableEdgeToEdge()
+            setContent {
+                // TODO: 第一次启动无动画
+                if (success) LottieAnimationScreen()
+                else TODO()
             }
         }
     }
@@ -51,8 +49,8 @@ fun LottieAnimationScreen() {
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = screenHeight / 3),
+            .fillMaxSize()
+            .padding(top = screenHeight / 2 - 150.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Logo container (icon with background)
@@ -75,6 +73,7 @@ fun LottieAnimationScreen() {
 
         // App name animation
         LottieAnimation(
+            alignment = Alignment.Center,
             modifier = Modifier.size(300.dp),
             composition = LottieCompositionLoader.getComposition(R.raw.mobiconf) // Assuming the text animation is also in the logo file
         )
