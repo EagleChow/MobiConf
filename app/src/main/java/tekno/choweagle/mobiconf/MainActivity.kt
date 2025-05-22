@@ -6,8 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -52,7 +51,7 @@ fun LottieAnimationScreen() {
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .padding(top = screenHeight / 3),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -73,8 +72,6 @@ fun LottieAnimationScreen() {
                 composition = LottieCompositionLoader.getComposition(R.raw.logo)
             )
         }
-
-        Spacer(modifier = Modifier.padding(top = screenHeight / 3))
 
         // App name animation
         LottieAnimation(
