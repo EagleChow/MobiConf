@@ -26,7 +26,11 @@ class MainActivity : ComponentActivity() {
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        (application as MobiConfApplication).mainActivity = this
+        (application as MobiConfApplication).let {
+            it.mainActivity = this
+
+            if (it.resultActivityCallback != null) onAllLoadedCallback(it.resultActivityCallback!!)
+        }
     }
 
     fun onAllLoadedCallback(success: Boolean) {

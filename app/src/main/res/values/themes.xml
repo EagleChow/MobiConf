@@ -2,7 +2,7 @@
 <resources>
 
     <style name="Theme.MobiConf" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
 
         <!-- 使界面完全透明 -->
         <item name="android:statusBarColor">@android:color/transparent</item>
