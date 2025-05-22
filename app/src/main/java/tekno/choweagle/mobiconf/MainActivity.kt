@@ -26,9 +26,20 @@ class MainActivity : ComponentActivity() {
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        enableEdgeToEdge()
-        setContent {
-            LottieAnimationScreen()
+        LottieCompositionLoader.loadCompositions(
+            this,
+            R.raw.icon_background,
+            R.raw.logo,
+            R.raw.mobiconf
+        ) { success ->
+            runOnUiThread {
+                enableEdgeToEdge()
+                setContent {
+                    // TODO: 第一次启动无动画
+                    if (success) LottieAnimationScreen()
+                    else TODO()
+                }
+            }
         }
     }
 }
@@ -53,13 +64,13 @@ fun LottieAnimationScreen() {
             // Logo background
             LottieAnimation(
                 modifier = Modifier.matchParentSize(),
-                composition = LottieCompositionLoader.get(R.raw.icon_background)
+                composition = LottieCompositionLoader.getComposition(R.raw.icon_background)
             )
 
             // Logo icon
             LottieAnimation(
                 modifier = Modifier.size(65.dp),
-                composition = LottieCompositionLoader.get(R.raw.logo)
+                composition = LottieCompositionLoader.getComposition(R.raw.logo)
             )
         }
 
@@ -68,7 +79,7 @@ fun LottieAnimationScreen() {
         // App name animation
         LottieAnimation(
             modifier = Modifier.size(300.dp),
-            composition = LottieCompositionLoader.get(R.raw.mobiconf) // Assuming the text animation is also in the logo file
+            composition = LottieCompositionLoader.getComposition(R.raw.mobiconf) // Assuming the text animation is also in the logo file
         )
     }
 }
