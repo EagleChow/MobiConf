@@ -10,6 +10,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -17,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import com.airbnb.lottie.compose.LottieAnimation
+import kotlinx.coroutines.delay
 import tekno.choweagle.mobiconf.lottie.LottieCompositionLoader
 
 class MainActivity : ComponentActivity() {
@@ -50,6 +56,12 @@ class MainActivity : ComponentActivity() {
 fun LottieAnimationScreen() {
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp.dp
+    var playTextAnimation by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        delay(1667)
+        playTextAnimation = true
+    }
 
     Column(
         modifier = Modifier
@@ -79,7 +91,8 @@ fun LottieAnimationScreen() {
         LottieAnimation(
             alignment = Alignment.Center,
             modifier = Modifier.size(300.dp),
-            composition = LottieCompositionLoader.getComposition(R.raw.mobiconf) // Assuming the text animation is also in the logo file
+            composition = LottieCompositionLoader.getComposition(R.raw.mobiconf), // Assuming the text animation is also in the logo file
+            isPlaying = playTextAnimation
         )
     }
 }
